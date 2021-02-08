@@ -8,16 +8,18 @@
   "use strict";
 
   // Nav Menu
-  $(document).on('click', '.nav-menu a, .mobile-nav a', function(e) {
+  $(document).on('click', '.nav-menu a, .mobile-nav a, .general-nav a', function(e) {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
       var hash = this.hash;
       var target = $(hash);
       if (target.length) {
         e.preventDefault();
 
-        if ($(this).parents('.nav-menu, .mobile-nav').length) {
+        if ($('.nav-menu, .mobile-nav').length) {
           $('.nav-menu .active, .mobile-nav .active').removeClass('active');
-          $(this).closest('li').addClass('active');
+          var tagHash = $(this)[0].hash;
+          $('.nav-menu a[href="'+tagHash+'"]').closest('li').addClass('active');
+          $('.mobile-nav a[href="'+tagHash+'"]').closest('li').addClass('active');
         }
 
         if (hash == '#header') {
